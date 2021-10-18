@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @EnableAutoConfiguration
 @RestController
 public class StudentController {
-@GetMapping("student")
-public Student getStudent() {
-	return new Student("ramesh","soni");
-}
+//@GetMapping("student")
+//public Student getStudent() {
+//	return new Student("ramesh","soni");
+//}
 @GetMapping("/students")
 public List<Student> getStudents(){
 	List<Student> students=new ArrayList<>();
@@ -21,4 +21,21 @@ public List<Student> getStudents(){
 	students.add(new Student("Ahishek","Soni"));
 	return students;
 }
+
+
+@GetMapping("/student/{firstName}/{lastName}")
+public Student studentPathVariable(@PathVariable("firstName") String firstName,
+		@PathVariable("lastName") String lastName) {
+	return new Student(firstName,lastName);
+}
+
+// handle query parameters
+@GetMapping("/student/query")
+public Student studentQueryParams(@RequestParam(name="firstName") String firstName,
+		@RequestParam(name="lastName") String lastName) {
+	return new Student(firstName,lastName);
+}
+
+
+
 }
